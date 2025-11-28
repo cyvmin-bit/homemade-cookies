@@ -33,3 +33,4 @@ footer{margin-top:28px;padding:20px;text-align:center;color:#6b605a}
 @media(max-width:480px){.grid{grid-template-columns:repeat(1,1fr)}nav{display:none}}
 .muted{color:#7a6f68;font-size:0.95rem}
 .pill{background:#fff;padding:6px 8px;border-radius:999px;border:1px solid #efe6e1}
+.pill.active{background:#a65b2a;color:white} /* Added this line for active pill state */
