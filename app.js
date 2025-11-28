@@ -82,30 +82,33 @@ function logout() {
 }
 
 function updateUI() {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
   const loginNav = document.getElementById('login-nav');
   const userInfo = document.getElementById('user-info');
   const logoutBtn = document.getElementById('logout-btn');
-  const adminSection = document.getElementById('admin');
-  
-  if (user.loggedIn) {
-    loginNav.style.display = 'none';
-    userInfo.style.display = 'inline';
-    userInfo.textContent = `Welcome, ${user.type}${user.email ? ` (${user.email})` : ''}`;
-    logoutBtn.style.display = 'inline';
-    
-    // Show admin panel only for admin users
-    if (user.type === 'admin') {
-      adminSection.style.display = 'block';
-    } else {
-      adminSection.style.display = 'none';
-    }
-  } else {
-    loginNav.style.display = 'inline';
-    userInfo.style.display = 'none';
-    logoutBtn.style.display = 'none';
-    adminSection.style.display = 'none';
+
+  // find the Admin nav link (support multiple markup variations)
+  const adminNav = document.querySelector('nav a.admin, nav a#admin, nav a[href="/admin"], nav a[href*="admin"]');
+
+  const isLoggedIn = user && !!user.loggedIn;
+  const isAdmin = isLoggedIn && (user.type === 'admin' || user.role === 'admin');
+
+  // login / user info visibility
+  if (loginNav) loginNav.style.display = isLoggedIn ? 'none' : '';
+  if (userInfo) {
+    userInfo.style.display = isLoggedIn ? 'inline-block' : 'none';
+    userInfo.textContent = isLoggedIn ? `Welcome, ${user.email || user.name || 'customer'}` : '';
   }
+  if (logoutBtn) logoutBtn.style.display = isLoggedIn ? '' : 'none';
+
+  // hide admin link when not admin
+  if (adminNav) {
+    adminNav.style.display = isAdmin ? '' : 'none';
+  }
+
+  // add body classes so CSS fallback works too
+  document.body.classList.toggle('customer', isLoggedIn && !isAdmin);
+  document.body.classList.toggle('admin', isAdmin);
 }
 
 function renderProducts(){
@@ -356,6 +359,32 @@ document.addEventListener('submit',e=>{
    alert('Product added');
  }
 })
+
+function onLoginSuccess(user) {
+  // user should be like { email, type: 'customer' | 'admin' }
+  const storedUser = {
+    loggedIn: true,
+    type: user.type || user.role || 'customer',
+    email: user.email || user.username || ''
+  };
+  localStorage.setItem('user', JSON.stringify(storedUser));
+  // keep UI in sync right away
+  updateUI();
+}
+
+/* run at page load (fallback if page refreshes) */
+document.addEventListener('DOMContentLoaded', () => {
+  const heroImg = document.querySelector('.hero .right img') || document.querySelector('.hero img');
+  if (heroImg) heroImg.src = 'mom.jpeg';
+  // call updateUI to load stored user and hide admin if needed
+  updateUI();
+
+  // If you also use a userRole key for other scripts, keep it up to date
+  try {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    if (user && user.type) localStorage.setItem('userRole', user.type);
+  } catch (e) { /* ignore */ }
+});
 
 // Initialize
 document.getElementById('logout-btn').addEventListener('click', logout);
