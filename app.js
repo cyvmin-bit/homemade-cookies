@@ -6,7 +6,7 @@ const products = [
     price: 25,
     qty: 25,
     desc: "Traditional Biskut Mazola — crunchy and rich.",
-    img: "biskut-mazola.jpg"
+    img: "Biskut Mazola.jpg"
   },
   {
     id: 2,
