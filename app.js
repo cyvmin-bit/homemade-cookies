@@ -15,7 +15,7 @@ const products = [
     price: 25,
     qty: 33,
     desc: "Crunchy and sweet.",
-    img: "cornflakes-cookies.jpg"
+    img: "Cornflakes Cookies.jpg"
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const products = [
     price: 25,
     qty: 20,
     desc: "Classic chocolate chip cookies.",
-    img: "chocolate-chips.jpg"
+    img: "Chocolate Chips.jpg"
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ const products = [
     price: 28,
     qty: 30,
     desc: "Premium almond cookies.",
-    img: "london-almond.jpg"
+    img: "London Almond.jpg"
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const products = [
     price: 28,
     qty: 28,
     desc: "Soft red velvet cookies.",
-    img: "red-velvet.jpg"
+    img: "Red Velvet.jpg"
   },
   {
     id: 6,
@@ -51,7 +51,7 @@ const products = [
     price: 20,
     qty: 40,
     desc: "Traditional suji almond cookies.",
-    img: "suji-badam.jpg"
+    img: "Suji Badam.jpg"
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const products = [
     price: 22,
     qty: 50,
     desc: "Pineapple tart cookies.",
-    img: "tart-nenas.jpg"
+    img: "Tart Nenas.jpg"
   },
   {
     id: 8,
@@ -69,7 +69,7 @@ const products = [
     price: 25,
     qty: 20,
     desc: "Unique and buttery.",
-    img: "bright-eyed-susan.jpg"
+    img: "Bright Eyed Susan.jpg"
   }
 ];
 
